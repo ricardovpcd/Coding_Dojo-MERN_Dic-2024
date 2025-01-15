@@ -1,0 +1,38 @@
+
+
+/*Celulares*/
+@media(min-width: 320px) and (max-width: 767px){
+
+    .title {
+        font-size: 30px;
+        color: #959595;
+        font-weight: bold;
+    }
+    
+    .subTitle{
+        color: red;
+    }
+
+}
+
+/*Tablets*/
+@media(min-width: 768px) and (max-width: 1023px){
+
+    .title {
+        font-size: 25px;
+        color: green;
+        font-weight: normal;
+    }
+
+}
+
+/*Laptops y monitores*/
+@media(min-width: 1024px){
+
+    .title {
+        font-size: 15px;
+        color: blue;
+        text-decoration: underline;
+    }
+
+}

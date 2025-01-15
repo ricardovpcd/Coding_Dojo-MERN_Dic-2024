@@ -8,6 +8,10 @@ function cambiarTitulo(){
 // input (text, password, email, phone, checkbox, textarea, etc)
 function obtenerDato(){
     var elemento = document.querySelector("#usuario");
+    // var elemento = document.getElementById("usuario");
+    // var elemento = document.getElementsByClassName("myText");
+    // var elemento = document.getElementsByTagName("div")
+    
     //console.log(elemento.value);
     elemento.value = "Edgar";
 }
@@ -40,4 +44,13 @@ function cambiarEstiloInput(){
     elemento.style.border = "2px solid blue";
 
     //elemento.style.borderColor = "blue";
+}
+
+function cambiarATodosLosText(){
+    var elementos = document.querySelectorAll(".myText");
+    for(var i = 0; i < elementos.length; i++){
+        console.log(elementos[i]);
+        elementos[i].value = "Hola input " + i;
+        elementos[i].style.color = "red";
+    }
 }
