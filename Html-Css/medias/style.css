@@ -36,3 +36,20 @@
     }
 
 }
+
+/*Media bootstrap*/
+@media(min-width: 1400px) {
+    .mystyle{
+        color:red;
+    }
+}
+
+@media(min-width: 1200px) {
+    .mystyle{
+        color:blue;
+    }
+}
+
+@media(min-width: 992px) {
+    
+}
