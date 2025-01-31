@@ -1,11 +1,14 @@
-const MySpecialSelect = () => {
+const MySpecialSelect = (props) => {
+    //console.log(props.items);
 
     return(
         <div>
             <select>
-                <option>Perú</option>
-                <option>Colombia</option>
-                <option>Argentina</option>
+                {
+                    props.items.map( (it) => {
+                        return <option> {it} </option>
+                    } )
+                }
             </select>
         </div>
     )

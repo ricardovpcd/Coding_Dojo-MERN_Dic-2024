@@ -1,4 +1,6 @@
 // { "etiqueta": "Ingresar usuario" }
+//import "./myInput.css";
+import estilos from "./myInput.module.css";
 const MyInput = (props) => {
 
     const myKeyDown = () => {
@@ -7,7 +9,7 @@ const MyInput = (props) => {
 
     return (
         <div>
-            <input type="text" onKeyDown={myKeyDown} placeholder={props.etiqueta}/>
+            <input type="text" className={estilos.baseStyle} onKeyDown={myKeyDown} placeholder={props.etiqueta}/>
         </div>
     )
 }
