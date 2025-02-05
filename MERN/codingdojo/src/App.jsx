@@ -1,31 +1,33 @@
+import { useState } from "react";
 import MyButton from "./components/myButton/myButton";
-import MyCalculator from "./components/myCalculator";
-import MyInput from "./components/myInput/myInput";
-import MySpecialSelect from "./components/mySpecialSelect";
-import Productos from "./components/productos";
 
 const App = () => {
+    const [image, setImage] = useState(true);
+
+    const showClick = () => {
+        console.log("Show");
+        setImage(true);
+    }
+
+    const hideClick = () => {
+        console.log("Hide");
+        setImage(false);
+    }
 
     return (
         <>
-            <MyButton titulo="Registrame" color="black"></MyButton>
-            <br />
-            <MyInput etiqueta={"Ingresar Usuario"} 
-                     contador={2}
-                     total={20.56}
-                     dato={ {} }
-                     list={ [] }
-                     isTeacher={true}></MyInput>
-            <MyInput etiqueta="Ingresar Contraseña"></MyInput>
-
-            <MySpecialSelect items={["Peru", "Argentina", "Venezuela", "Colombia"]}></MySpecialSelect>
-
-            <MySpecialSelect items={["Jose", "Carlos", "Ricardo", "Maria", "Juana"]}></MySpecialSelect>
+            {
+                (image == true) ? 
+                <img src="https://static.nationalgeographicla.com/files/styles/image_3200/public/nationalgeographic_1468962.jpg?w=1900&h=1400"
+                width={100}/> : <></>}
             
-            <Productos lista={["Arroz", "Leche", "Menestras"]}></Productos>
+            <MyButton title="Mostrar" 
+                      color="green" 
+                      clickAction={showClick}></MyButton>
 
-            <br />
-            <MyCalculator></MyCalculator>
+            <MyButton title="Ocultar" 
+                      color="red" 
+                      clickAction={hideClick}></MyButton>
         </>
     )
 }
