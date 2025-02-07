@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
+import { Form } from "react-bootstrap";
 
 const MyForm = () => {
     const [myName, setMyName] = useState("");
@@ -17,7 +18,10 @@ const MyForm = () => {
 
     const myInputElement = (placeHolder) => {
         return <div>
-            <input type="text" value={myName} onChange={(e) => setMyName(e.target.value)} placeholder={placeHolder}/>
+            <Form.Control
+                type="text"
+                value={myName} onChange={(e) => setMyName(e.target.value)} placeholder={placeHolder}
+            />
         </div>
     }
 
@@ -30,11 +34,11 @@ const MyForm = () => {
                 <textarea value={myDescription} onChange={(e) => setMyDescription(e.target.value)}></textarea>
             </div>
             <div>
-                <select value={myCountry} onChange={(e) => setMyCountry(e.target.value)}>
+                <Form.Select value={myCountry} onChange={(e) => setMyCountry(e.target.value)}>
                     <option value="PE">Peru</option>
                     <option value="ARG">Argentina</option>
                     <option value="UY">Uruguay</option>
-                </select>
+                </Form.Select>
             </div>
 
             <div>
@@ -51,11 +55,9 @@ const MyForm = () => {
             N/A
             <input type="radio" name="gender" value="NA" checked={myGender == "NA"} onChange={(e) => setMyGender(e.target.value)}/>
 
-            {
-                (myAccept == true) ? <div>
+            <div>
                                             <button onClick={sendState}>Enviar con estados</button>
-                                        </div> : <></>
-            }
+                                        </div>
 
             {
                 /*myAccept && <div>
