@@ -1,12 +1,11 @@
-import { Badge, Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import MyForm from "./components/myForm/myForm";
+import PokemonSearch from "./components/pokemonSearch/pokemonSearch";
 
 const App = () => {
 
     return (
         <>
-            <MyForm></MyForm>
+            <PokemonSearch></PokemonSearch>
         </>
     )
 }
