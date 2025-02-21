@@ -1,0 +1,12 @@
+.title {
+    color: brown;
+    font-weight: bold;
+}
+
+.likeBtn {
+    background-color: green;
+}
+
+.dislikeBtn {
+    background-color: red;
+}
