@@ -1,66 +1,59 @@
-const createProduct = (req, res) => {
-    // request = contener datos que se envian del frontend
-    //console.log(req.body.cantidad);
-    var cantidadProd = req.body.cantidad;
-    /* LOGICA */
+import Product from "./models/product.js";
 
-    // cantidadProd = cantidadProd + 20;
-    cantidadProd += 100;
+const createProduct = async (req, res) => {
+    try {
+        var data = req.body;
+        var newProduct = new Product(
+            {
+                name: data.name,
+                quantity: data.quantity,
+                isActive: true
+            }
+        )
 
-    // response = les va a permitir enviar datos al frontend como respuesta
-    res.status(201).json( { 
-        "message": "Todo estuvo bien!",
-        "year": "2026",
-        "newCantidad": cantidadProd
-    } );
+        await newProduct.save();
+
+        res.status(201).json( { status: true } );
+    } catch (error) {
+        res.status(500).json( { status: false, message: "Error en crear producto" } );
+    }
 }
 
-const listProducts = (req, res) => {
-    /* LOGICA */
-    var lista = [
-        {
-            nombre: "Leche",
-            cantidad: 10
-        }, 
-        {
-            nombre: "Azucar",
-            cantidad: 20
-        }, 
-        {
-            nombre: "Cebolla",
-            cantidad: 30
-        }
-    ]
-
-    // response = les va a permitir enviar datos al frontend como respuesta
-    res.status(200).json( lista );
+const listProducts = async (req, res) => {
+    var listProducts = await Product.find();
+    res.status(200).json( listProducts );
 }
 
-const singleProduct = (req, res) => {
-    var product = {
-        nombre: "Leche",
-        cantidad: 10
-    };
+const singleProduct = async (req, res) => {
+    var id = req.params.id;
 
-    res.status(200).json(product);
+    var productFind = await Product.findById(id);
+
+    res.status(200).json(productFind);
 }
 
-const deleteProduct = (req, res) => {
-    console.log(req.params.identificador);
+const deleteProduct = async (req, res) => {
+    var id = req.params.identificador;
 
-    // LOGICA
+    await Product.findByIdAndDelete(id);
 
     res.status(200).json();
 }
 
-const updateProduct = (req, res) => {
-    var identi = req.params.id;
-    var datos = req.body;
+const updateProduct = async (req, res) => {
+    try {
+        var id = req.params.id;
+        var data = req.body;
 
-    console.log(identi);
-    console.log(datos);
-    
-    res.status(200).json();
+        await Product.findByIdAndUpdate(id, {
+            isActive: data.isActive,
+            quantity: data.quantity
+        }, { runValidators: true })
+        
+        res.status(200).json();
+    } catch (error) {
+        res.status(500).json( { status: false, message: "Error en actualizar producto" } );
+    }
 }
 
 const searchProducts = (req, res) => {
