@@ -1,4 +1,6 @@
-import Product from "./models/product.js";
+import mongoose from "mongoose";
+import Product from "../models/product.js";
+import User from "../models/user.js";
 
 const createProduct = async (req, res) => {
     try {
@@ -7,7 +9,13 @@ const createProduct = async (req, res) => {
             {
                 name: data.name,
                 quantity: data.quantity,
-                isActive: true
+                isActive: true,
+                user: new mongoose.Types.ObjectId(data.userId),
+                address: {
+                    description: data.description,
+                    zipCode: data.zipCode,
+                    country: data.country
+                }
             }
         )
 
@@ -15,7 +23,7 @@ const createProduct = async (req, res) => {
 
         res.status(201).json( { status: true } );
     } catch (error) {
-        res.status(500).json( { status: false, message: "Error en crear producto" } );
+        res.status(500).json( { status: false, message: error.message } );
     }
 }
 
@@ -26,9 +34,7 @@ const listProducts = async (req, res) => {
 
 const singleProduct = async (req, res) => {
     var id = req.params.id;
-
-    var productFind = await Product.findById(id);
-
+    var productFind = await Product.findById(id).populate("user")
     res.status(200).json(productFind);
 }
 
@@ -46,7 +52,7 @@ const updateProduct = async (req, res) => {
         var data = req.body;
 
         await Product.findByIdAndUpdate(id, {
-            isActive: data.isActive,
+            name: data.name,
             quantity: data.quantity
         }, { runValidators: true })
         
@@ -56,11 +62,16 @@ const updateProduct = async (req, res) => {
     }
 }
 
-const searchProducts = (req, res) => {
-    console.log(req.query.nombre);
-    console.log(req.query.cantidad);
+const searchProducts = async (req, res) => {
+    var nameSearch = req.query.name;
+    var quantitySearch = req.query.quantity;
+
+    var listProducts = await Product.find({
+        name: nameSearch,
+        quantity: quantitySearch
+    })
     
-    res.status(200).json();
+    res.status(200).json(listProducts);
 }
 
 export default {createProduct, listProducts, singleProduct, deleteProduct, updateProduct, searchProducts}
