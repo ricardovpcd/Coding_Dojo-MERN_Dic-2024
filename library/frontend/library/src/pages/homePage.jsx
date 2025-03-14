@@ -31,11 +31,17 @@ const HomePage = () => {
         }
     } 
 
+    const logout = () => {
+        localStorage.removeItem("jwt");
+        navigate("/login");
+    }
+
     return (
         <>
             <h1>Listado de todos los libros</h1>
             
             <button onClick={goToCreatePage}>Crear Libro</button>
+            <button onClick={logout}>Logout</button>
 
             <table style={{border: "1px solid black"}}>
                 <thead>

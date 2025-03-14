@@ -1,33 +1,34 @@
-import { useState } from "react";
 import axios from "axios";
+import {useForm} from "react-hook-form";
 
 const CreateBookPage = () => {
-    const [title, setTitle] = useState("");
-    const [year, setYear] = useState(0);
-    const [description, setDescription] = useState("");
-    const [available, setAvailable] = useState(false);
+    const {
+        register,
+        getValues,
+        trigger,
+        reset,
+        formState: { errors },
+      } = useForm({
+        defaultValues: {
+            title: "",
+            year: "",
+            description: "",
+            available: false
+        }
+      });
 
     const createBook = async () => {
-        if(title.length == 0 || year.length == 0 || description.length == 0){
+        var validate = await trigger(["title", "year", "description"]);
+        if(!validate){
             alert("Ingrese todos los datos");
             return;
         }
 
-        var data = {
-            "title": title,
-            "year": year,
-            "description": description,
-            "available": available
-        }
-
+        var data = getValues();
         await axios.post("http://localhost:8080/createBook", data);
 
         alert("Se ha creado correctamente el libro");
-        
-        setTitle("");
-        setYear(0);
-        setDescription("");
-        setAvailable(false);
+        reset();
     }
 
     return (
@@ -36,16 +37,16 @@ const CreateBookPage = () => {
             <div style={{display: "flex", flexDirection: "column", alignItems: "start", gap: "10px"}}>
 
                 <label>Titulo</label>
-                <input type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
+                <input type="text" {...register("title", { required: "El titulo es requerido" })}/>
 
                 <label>Año de publicación</label>
-                <input type="number" value={year} onChange={(e) => setYear(e.target.value)}/>
+                <input type="number" {...register("year", { required: true })}/>
 
                 <label>Descripción</label>
-                <textarea value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
+                <textarea {...register("description", { required: true })}></textarea>
 
                 <label>¿Disponible?</label>
-                <input type="checkbox" checked={available} onChange={(e) => setAvailable(e.target.checked)}/>
+                <input type="checkbox" {...register("available")}/>
 
                 <button onClick={createBook}>Crear libro</button>
 

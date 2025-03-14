@@ -1,5 +1,6 @@
 import express from "express";
 import bookRoutes from "./routes/bookRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 import mongoose from "mongoose";
 import cors from "cors";
 
@@ -12,6 +13,7 @@ mongoose.connect("mongodb+srv://admin:123@cluster0.fkvmu.mongodb.net/codingdojol
 .catch((e) => console.log(e));
 
 app.use(bookRoutes);
+app.use(userRoutes);
 
 app.listen(8080, () => {
     console.log("Se inicio el server de manera correcta");
