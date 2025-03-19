@@ -5,6 +5,8 @@ import EditBookPage from "./pages/editBookPage.jsx";
 import RegisterPage from "./pages/registerPage.jsx";
 import LoginPage from "./pages/loginPage.jsx";
 import RouteMiddleware from "./middlewares/routeMiddleware.jsx";
+import CreateReviewPage from "./pages/createReviewPage.jsx";
+import ListReviewsPage from "./pages/listReviewsPage.jsx";
 
 function App() {
 
@@ -20,6 +22,8 @@ function App() {
             <Route path="/" element={ <HomePage/> } />
             <Route path="/nuevo" element={<CreateBookPage/>}/>
             <Route path="/editar/:id" element={<EditBookPage/>}/>
+            <Route path="/crear-comentario/:id" element={<CreateReviewPage/>}/>
+            <Route path="/listar-comentarios/:id" element={<ListReviewsPage/>}/>
 
           </Route>
 

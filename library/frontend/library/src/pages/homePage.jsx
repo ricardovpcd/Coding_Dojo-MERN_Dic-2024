@@ -29,7 +29,15 @@ const HomePage = () => {
             await axios.delete("http://localhost:8080/deleteBook/" + id);
             getBooks();
         }
-    } 
+    }
+    
+    const goToCreateReview = (id) => {
+        navigate("/crear-comentario/" + id);
+    }
+    
+    const goToListReviews = (id) => {
+        navigate("/listar-comentarios/" + id);
+    }
 
     const logout = () => {
         localStorage.removeItem("jwt");
@@ -66,6 +74,8 @@ const HomePage = () => {
                                         <td style={{border: "1px solid black"}}>
                                             <button onClick={() => goToEditPage(book._id)}>Editar</button>
                                             <button onClick={() => deleteBook(book._id)}>Eliminar</button>
+                                            <button onClick={() => goToCreateReview(book._id)}>Agregar Comentario</button>
+                                            <button onClick={() => goToListReviews(book._id)}>Ver Comentarios</button>
                                         </td>
                                     </tr>
                         })
