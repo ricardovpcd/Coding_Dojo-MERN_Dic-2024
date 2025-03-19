@@ -35,7 +35,7 @@ const login = async (req, res) => {
         name: userFind.name
     }
 
-    var jwtValue = jwt.sign(userData, "CodingDojoKey", { expiresIn: "2m" })
+    var jwtValue = jwt.sign(userData, "CodingDojoKey", { expiresIn: "8h" })
     res.status(200).json({ "exist": true, jwt: jwtValue });
 }
 
