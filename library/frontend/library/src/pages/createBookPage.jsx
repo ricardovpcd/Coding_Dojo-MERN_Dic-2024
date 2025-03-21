@@ -1,5 +1,8 @@
 import axios from "axios";
 import {useForm} from "react-hook-form";
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:8080");
 
 const CreateBookPage = () => {
     const {
@@ -29,6 +32,7 @@ const CreateBookPage = () => {
 
         alert("Se ha creado correctamente el libro");
         reset();
+        socket.emit("message", true);
     }
 
     return (

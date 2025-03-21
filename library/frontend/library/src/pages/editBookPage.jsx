@@ -1,6 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:8080");
 
 const EditBookPage = () => {
     const [title, setTitle] = useState("");
@@ -39,7 +42,8 @@ const EditBookPage = () => {
 
         await axios.put("http://localhost:8080/updateBook/" + params.id, data);
         alert("El libro se actualizo correctamente");
-        navigate("/");
+        socket.emit("message", true);
+        //navigate("/");
     }
 
     return (

@@ -1,13 +1,22 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:8080");
 
 const HomePage = () => {
     const [bookList, setBookList] = useState([]);
     const navigate = useNavigate();
-
+    
     useEffect(() => {
         getBooks();
+
+        socket.on("broadcast", (data) => {
+            if(data == true){
+                getBooks();
+            }
+        })
     }, []);
 
     const getBooks = async () => {
@@ -28,6 +37,7 @@ const HomePage = () => {
         if(confirm){
             await axios.delete("http://localhost:8080/deleteBook/" + id);
             getBooks();
+            socket.emit("message", true);
         }
     }
     
